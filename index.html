@@ -10,8 +10,16 @@
       (async function () {
         await cheerpjInit();
         cheerpjCreateDisplay(800, 600);
-        await cheerpjRunJar("/app/TextDemo.jar", "TextDemo.jar");
-
+        await cheerpjInit({
+            // Mapeia o arquivo real "meu_app.jar" (na mesma pasta do HTML)
+            // para o caminho virtual "/app/meu_app.jar" dentro do CheerpJ.
+            fs: {
+                '/app/TextDemo.jar': 'url("TextDemo.jar")'
+            },
+            // Indica ao CheerpJ qual JAR ele deve executar como principal
+            javaProperties: ['-Dcheerpj.app.jar=/app/TextDemo.jar'],
+            // Sua classe principal dentro do JAR
+         });
       })();
     </script>
   </body>
